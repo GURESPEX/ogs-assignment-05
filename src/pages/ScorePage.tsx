@@ -1,19 +1,14 @@
-import { RootState } from "@/store/store";
-import { useSelector } from "react-redux";
+import { getAttemptHistory } from "@/functions/functions";
 
 function ScorePage() {
-  const { attemptHistory } = useSelector(
-    (state: RootState) => state.quiz.value
-  );
-
   return (
     <div className="w-full h-full col p-4 gap-8">
       <h1 className="text-4xl font-light uppercase pl-4 border-l-4 border-yellow-300">
         ผลการทดสอบทั้งหมด
       </h1>
       <div className="col gap-2">
-        {attemptHistory.length ? (
-          attemptHistory
+        {getAttemptHistory().length ? (
+          getAttemptHistory()
             .map(({ score }, index) => (
               <div
                 key={index}
@@ -22,7 +17,7 @@ function ScorePage() {
                 <div className="row items-start gap-4">
                   <div className="w-8 aspect-square row justify-center items-center rounded-lg bg-slate-200 dark:bg-slate-950">
                     <p className="relative font-light text-slate-900 dark:text-white museo-moderno">
-                      {index + 1}
+                      {getAttemptHistory().length - index}
                     </p>
                   </div>
                   <p className="relative text-xl font-light row items-center flex-1 h-full">

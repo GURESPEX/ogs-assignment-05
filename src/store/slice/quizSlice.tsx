@@ -1,5 +1,6 @@
 import { QuestionsData } from "@/data/QuestionsData";
-import { Answer, AttemptHistory, Question } from "@/types/types";
+import { saveScore } from "@/functions/functions";
+import { Answer, Question } from "@/types/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Initial State
@@ -10,7 +11,6 @@ const initialState: {
     ended: boolean;
     score: number;
     selectedChoices: (Answer | undefined)[];
-    attemptHistory: AttemptHistory[];
     questions: Question[];
   };
 } = {
@@ -20,7 +20,6 @@ const initialState: {
     ended: false,
     score: 0,
     selectedChoices: Array(QuestionsData.length).fill(undefined),
-    attemptHistory: [],
     questions: QuestionsData,
   },
 };
@@ -51,10 +50,7 @@ export const quizSlice = createSlice({
           state.value.score += 1;
         }
       });
-      state.value.attemptHistory.push({ score: state.value.score });
-      if (state.value.attemptHistory.length > 10) {
-        state.value.attemptHistory.shift();
-      }
+      saveScore(state.value.score);
       state.value.ended = true;
     },
     reAttempt: (state) => {
@@ -72,10 +68,8 @@ export const {
   nextQuestion,
   prevQuestion,
   changeChoice,
-  // answerQuestion,
   submitAttempt,
   reAttempt,
-  // finishQuiz,
 } = quizSlice.actions; // To change value
 
 export default quizSlice.reducer; // Export to configure in store
