@@ -1,7 +1,8 @@
-import { Slider } from "@/components/ui/slider";
-import { evaluateCourse } from "@/store/slice/evaluateSlice";
+// import { Slider } from "@/components/ui/slider";
+// import { evaluateCourse } from "@/store/slice/evaluateSlice";
 import { Course } from "@/types/types";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
+import { Progress } from "@/components/ui/progress";
 
 type Props = {
   min: number;
@@ -12,7 +13,7 @@ type Props = {
 };
 
 const EvaluateCourse = ({ min, max, course, score, index }: Props) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   return (
     <div
       key={course.id}
@@ -29,7 +30,7 @@ const EvaluateCourse = ({ min, max, course, score, index }: Props) => {
         </p>
       </div>
       <div className="row items-center gap-4">
-        <Slider
+        {/* <Slider
           onValueChange={([value]) => {
             dispatch(evaluateCourse({ courseId: course.id, score: value }));
           }}
@@ -37,6 +38,9 @@ const EvaluateCourse = ({ min, max, course, score, index }: Props) => {
           min={min}
           max={max}
           step={1}
+        /> */}
+        <Progress
+          value={((score + Math.abs(min)) / (max + Math.abs(min))) * 100}
         />
 
         <div className="row justify-center items-center w-24 py-1 rounded-lg bg-slate-900 dark:bg-yellow-300 text-white dark:text-slate-900 gap-1">
